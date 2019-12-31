@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" />
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script>
+            $(function () {
+                $("#queryBtn").click(function () {
+                    query();
+                });
+                $("#getBtn").click(function () {
+                    query();
+                });
+                $("#addBtn").click(function () {
+                    query();
+                });
+                $("#updateBtn").click(function () {
+                    query();
+                });
+                $("#deleteBtn").click(function () {
+                    query();
+                });
+
+                function displayTable(result) {
+                    result = JSON.parse(result);
+                    console.log(result);
+                    $('#nametable').find('tbody').empty();
+                    $.each(result, function (i, value) {
+                        $('#nametable').find('tbodt').append($('<tr>')
+                                .append($('<td>').append(i))
+                                .append($('<td>').append(value))
+                                );
+                    });
+                }
+
+
+                function query() {
+                    var url = '../rest/login';
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function (result) {
+                            console.log(result);
+                            $('#result').text(result);
+                            displayTable(result);
+                        }
+                    });
+                }
+
+            });
+        </script>
+    </head>
+    <body style="padding: 15px">
+        <form class="pure-form">
+            <fieldset>
+                <legend>Jersey</legend>
+
+                id:<input type="text" id="id" name="id">
+                name:<input type="text" id="name" name="value"><p/>
+                <button type="button" class="pure-button pure-button-primary" id="queryBtn">QUERY</button>
+                <button type="button" class="pure-button pure-button-primary" id="getBtn">GET</button>
+                <button type="button" class="pure-button pure-button-primary" id="addBtn">ADD</button>
+                <button type="button" class="pure-button pure-button-primary" id="updateBtn">UPDATE</button>
+                <button type="button" class="pure-button pure-button-primary" id="deleteBtn">DELETE</button>
+            </fieldset>
+        </form>
+        <div id="result"></div>
+        <table id="nametable" class="pure-table pure-table-bordered">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>品名</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </body>
+</html>
